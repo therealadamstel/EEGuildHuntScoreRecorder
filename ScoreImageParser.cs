@@ -28,7 +28,7 @@ namespace EEGuildHuntTool
                     if (xTrimSpot == Rect.Empty)
                         throw new InvalidOperationException("Cannot find X coordinate");
 
-                    // 2 - Chop X% off of the left, with a 2 pixel border
+                    // 2 - Chop X% off of the left, with a 8 pixel border
                     // (The way the scores are laid out the avatar frame will overflow the bounding rectangle, throwing off
                     // edge detection and that makes it harder to find the part with the scores)
                     // NOTE: in my testing images it was .620M or .64317M, this allows me to take a variety of resolutions
