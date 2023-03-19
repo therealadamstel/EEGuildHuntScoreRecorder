@@ -39,16 +39,17 @@ namespace EEGuildHuntTool
             Attempts = attempts;
         }
 
+        // NOTE: this will never return true twice. Ugly design but IDGAF.
         public bool IsValid()
         {
             // Damage should say "Damage: X"
-            if (Damage.StartsWith("Damage: ") == false)
+            if (Damage.Replace(" ", "").StartsWith("Damage:", StringComparison.OrdinalIgnoreCase) == false)
             {
                 return false;
             }
             else
             {
-                Damage = Damage.Substring("Damage: ".Length).Trim();
+                Damage = Damage.Substring(Damage.IndexOf(":") + 1).Trim();
 
                 // Damage should end in "M" or "B"
                 if (Damage.EndsWith("M") == false && Damage.EndsWith("B") == false)
@@ -63,13 +64,13 @@ namespace EEGuildHuntTool
             }
 
             // Challenges should say "Number of challenges: X"
-            if (Attempts.StartsWith("Number of challenges: ") == false)
+            if (Attempts.Replace(" ", "").StartsWith("Numberofchallenges:", StringComparison.OrdinalIgnoreCase) == false)
             {
                 return false;
             }
             else
             {
-                Attempts = Attempts.Substring("Number of challenges: ".Length).Trim();
+                Attempts = Attempts.Substring(Attempts.IndexOf(":") + 1).Trim();
             }
 
             return true;

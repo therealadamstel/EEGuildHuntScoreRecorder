@@ -147,11 +147,11 @@ namespace EEGuildHuntTool
 
         private static void DisplayImage(Image<Gray, byte> image, int timeout)
         {
-            if (Debugger.IsAttached)
-            {
-                CvInvoke.Imshow("Result", image);
-                CvInvoke.WaitKey(timeout);
-            }
+            //if (Debugger.IsAttached)
+            //{
+            //    CvInvoke.Imshow("Result", image);
+            //    CvInvoke.WaitKey(timeout);
+            //}
         }
 
         private static ScoreLog QuandrantizeImage(Bitmap bm)
@@ -159,7 +159,7 @@ namespace EEGuildHuntTool
             try
             {
                 // Break the scoring box into quadrants
-                int leftWidth = (int)Math.Floor(bm.Width * .5M);
+                int leftWidth = (int)Math.Floor(bm.Width * .35M);
                 int rightWidth = bm.Width - leftWidth;
                 int height = (int)Math.Floor(bm.Height / 2M);
 

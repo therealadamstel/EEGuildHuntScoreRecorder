@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "EEGuildHuntTool": {
+      "commandName": "Project",
+      "commandLineArgs": "run C:\\Users\\adams\\OneDrive\\Desktop\\EE\\Scores"
+    }
+  }
+}

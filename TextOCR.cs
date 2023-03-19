@@ -14,15 +14,15 @@ namespace EEGuildHuntTool
 
         static TextOCR()
         {
-            _tessEngine = new Engine("./tessdata", "eng", EngineMode.TesseractOnly);
+            _tessEngine = new Engine("./tessdata", "eng", EngineMode.Default);
             _tessEngine.SetVariable("tessedit_pageseg_mode", "7");
         }
 
         public static Page ReadPage(string imagePath, PageSegMode pageSegMode = PageSegMode.Auto)
         {
             // Load the image file
-            TesseractOCR.Pix.Image image = TesseractOCR.Pix.Image.LoadFromFile(imagePath);
-            return _tessEngine.Process(image, pageSegMode);
+            using (TesseractOCR.Pix.Image image = TesseractOCR.Pix.Image.LoadFromFile(imagePath))
+                return _tessEngine.Process(image, pageSegMode);
         }
 
         public static string Execute(string imagePath)
