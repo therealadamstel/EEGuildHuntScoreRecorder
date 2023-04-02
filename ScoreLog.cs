@@ -64,7 +64,7 @@ namespace EEGuildHuntTool
                 else if (Damage.EndsWith("TM"))
                 {
                     // BUGFIX: sometimes a 1 next to M turns into a TM
-                    Damage = Damage.Substring(Damage.Length - 2) + "1M";
+                    Damage = Damage.Substring(0, Damage.Length - 2) + "1M";
                 }
             }
 
