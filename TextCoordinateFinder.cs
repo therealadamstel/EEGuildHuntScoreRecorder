@@ -23,10 +23,15 @@ namespace EEGuildHuntTool
             var rect = FindXCoordinateOfText(file, "Member");
             if (rect == Rect.Empty)
             {
-                rect = FindXCoordinateOfText(file, "Official");
+                // Bug fix: sometimes it misses the m in member, so look for Meber as well
+                rect = FindXCoordinateOfText(file, "Meber");
                 if (rect == Rect.Empty)
                 {
-                    rect = FindXCoordinateOfText(file, "Chancellor");
+                    rect = FindXCoordinateOfText(file, "Official");
+                    if (rect == Rect.Empty)
+                    {
+                        rect = FindXCoordinateOfText(file, "Chancellor");
+                    }
                 }
             }
 
