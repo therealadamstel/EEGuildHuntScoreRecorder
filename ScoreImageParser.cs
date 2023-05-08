@@ -54,7 +54,7 @@ namespace EEGuildHuntTool
                         // Find contours in the new image
                         List<Rectangle> rects = FindRectangles(image, cannyEdges);
 
-                        DisplayImage(image, 200);
+                        DisplayImage(image, 0);
 
                         // 4 - For each rect, break it apart and look for scores
                         List<ScoreLog> scores = new List<ScoreLog>();
@@ -141,17 +141,20 @@ namespace EEGuildHuntTool
 
         private static void DisplayImage(Image<Bgr, byte> image, int timeout)
         {
-            CvInvoke.Imshow("Result", image);
-            CvInvoke.WaitKey(timeout);
+            if (Debugger.IsAttached)
+            {
+                CvInvoke.Imshow("Result", image);
+                CvInvoke.WaitKey(timeout);
+            }
         }
 
         private static void DisplayImage(Image<Gray, byte> image, int timeout)
         {
-            //if (Debugger.IsAttached)
-            //{
-            //    CvInvoke.Imshow("Result", image);
-            //    CvInvoke.WaitKey(timeout);
-            //}
+            if (Debugger.IsAttached)
+            {
+                CvInvoke.Imshow("Result", image);
+                CvInvoke.WaitKey(timeout);
+            }
         }
 
         private static ScoreLog QuandrantizeImage(Bitmap bm)

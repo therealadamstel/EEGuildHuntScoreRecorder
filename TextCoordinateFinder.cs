@@ -27,10 +27,15 @@ namespace EEGuildHuntTool
                 rect = FindXCoordinateOfText(file, "Meber");
                 if (rect == Rect.Empty)
                 {
-                    rect = FindXCoordinateOfText(file, "Official");
+                    // Bug fix: sometimes it's just way off base
+                    rect = FindXCoordinateOfText(file, "verber");
                     if (rect == Rect.Empty)
                     {
-                        rect = FindXCoordinateOfText(file, "Chancellor");
+                        rect = FindXCoordinateOfText(file, "Official");
+                        if (rect == Rect.Empty)
+                        {
+                            rect = FindXCoordinateOfText(file, "Chancellor");
+                        }
                     }
                 }
             }
@@ -43,7 +48,7 @@ namespace EEGuildHuntTool
             return rect;
         }
 
-        public static Rect FindXCoordinateOfText(string file, string textToFind)
+        public static Rect FindXCoordinateOfText(string file, string textToFind, bool wordNotBlock = true)
         {
             // Recognize the text in the image
             using (var page = TextOCR.ReadPage(file, PageSegMode.SparseText))
@@ -53,13 +58,17 @@ namespace EEGuildHuntTool
                 var matches = new List<Rect>();
                 foreach (var block in page.Layout)
                 {
+                    if (!wordNotBlock && block.Text.Trim().Equals(textToFind, StringComparison.OrdinalIgnoreCase))
+                    {
+                        matches.Add(block.BoundingBox.Value);
+                    }
                     foreach (var paragraph in block.Paragraphs)
                     {
                         foreach (var textLine in paragraph.TextLines)
                         {
                             foreach (var word in textLine.Words)
                             {
-                                if (word.Text.Trim().Equals(textToFind, StringComparison.OrdinalIgnoreCase))
+                                if (wordNotBlock && word.Text.Trim().Equals(textToFind, StringComparison.OrdinalIgnoreCase))
                                 {
                                     matches.Add(word.BoundingBox.Value);
                                 }
